@@ -1,0 +1,28 @@
+{
+  "name": "home-task-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "task1": "nodemon task1.js",
+    "task2": "nodemon task2.js",
+    "task1Babel": "nodemon --exec node_modules/.bin/babel-node task1Babel.js",
+    "task2Babel": "nodemon --exec node_modules/.bin/babel-node task2Babel.js"
+  },
+  "author": "Cristian Sanchez",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "nodemon": "^2.0.20",
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
+    "@babel/preset-env": "^7.20.2"
+  }
+}
