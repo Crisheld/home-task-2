@@ -9,13 +9,13 @@ import { AppError } from "./common/AppError";
 dotenv.config();
 
 async function assertDatabaseConnectionOk() {
-  console.log(`Checking database connection...`);
+  logger.info(`Checking database connection...`);
   try {
     await sequelize.authenticate();
-    console.log("Database connection OK!");
+    logger.info("Database connection OK!");
   } catch (error) {
-    console.log("Unable to connect to the database:");
-    console.log(error);
+    logger.info("Unable to connect to the database:");
+    logger.info(error);
     process.exit(1);
   }
 }
@@ -53,7 +53,7 @@ async function init() {
   );
 
   app.listen(port, () => {
-    console.log(
+    logger.info(
       `⚡️[server]: Server is now running at http://localhost:${port}`
     );
   });

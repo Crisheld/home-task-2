@@ -1,4 +1,5 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
+import logger from "./logger";
 
 
 //this data should be retrieved from enviroment params
@@ -13,4 +14,4 @@ export const sequelize = new Sequelize(database, dbUser, password, {
   logging: false,
 });
 
-console.log("sequilize init");
+logger.info("sequilize init");
