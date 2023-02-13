@@ -4,6 +4,7 @@ import userRoutes from "./user/routes";
 import groupRoutes from "./group/routes";
 import { sequelize } from "./sequilizedb";
 import logger from "./logger";
+import { AppError } from "./common/AppError";
 
 dotenv.config();
 
@@ -30,12 +31,26 @@ async function init() {
   app.use(express.json());
 
   app.use((req: Request, res: Response, next: NextFunction) => {
-    logger.info(`reaching endpoint ${req.method}:${req.originalUrl} with this body ${JSON.stringify(req.body)}`);
+    logger.info(
+      `reaching endpoint ${req.method}:${
+        req.originalUrl
+      } with this body ${JSON.stringify(req.body)}`
+    );
     next();
   });
 
   app.use("/user", userRoutes);
   app.use("/group", groupRoutes);
+
+  app.use(
+    (error: AppError, req: Request, res: Response, next: NextFunction) => {
+      if (error.status) {
+        res.status(error.status).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "internal server error" });
+      }
+    }
+  );
 
   app.listen(port, () => {
     console.log(

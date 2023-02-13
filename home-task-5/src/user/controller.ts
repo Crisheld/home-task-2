@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ValidatedRequest } from "express-joi-validation";
 import { UserBodySchema } from "./validator";
 import { User } from "./userModel";
 import { Op } from "sequelize";
 import { throwError } from "../common/utils";
+import logger from "../logger";
 
 export const create = async (
   req: ValidatedRequest<UserBodySchema>,
@@ -20,11 +21,17 @@ export const create = async (
 
 export const update = async (
   req: ValidatedRequest<UserBodySchema>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   const user = await User.findByPk(req.params.userId);
   if (!user) {
-    throwError("user doesn't exist");
+    logger.error(`
+      module user method update error[user doesn't exist] 
+      params ${JSON.stringify(req.params)}
+      body ${JSON.stringify(req.body)}
+    `);
+    return throwError("user doesn't exist", next);
   } else {
     user.login = req.body.login;
     user.password = req.body.password;
@@ -34,21 +41,36 @@ export const update = async (
   }
 };
 
-export const getById = async (req: Request, res: Response): Promise<void> => {
+export const getById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const user = await User.findByPk(req.params.userId);
   if (!user) {
-    throwError("user doesn't exist");
+    logger.error(`
+      module user method getById error[user doesn't exist] 
+      params ${JSON.stringify(req.params)}
+      body ${JSON.stringify(req.body)}
+    `);
+    return throwError("user doesn't exist", next);
   }
   res.status(200).json({ message: "user fetched", user: user });
 };
 
 export const deleteById = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   const user = await User.findByPk(req.params.userId);
   if (!user) {
-    throwError("user doesn't exist");
+    logger.error(`
+      module user method deleteById error[user doesn't exist] 
+      params ${JSON.stringify(req.params)}
+      body ${JSON.stringify(req.body)}
+    `);
+    return throwError("user doesn't exist", next);
   } else {
     user.isDeleted = true;
     user.save();
@@ -58,7 +80,8 @@ export const deleteById = async (
 
 export const getAutoSuggestUsers = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const loginSubstring = req.params.loginSubstring;
@@ -74,6 +97,11 @@ export const getAutoSuggestUsers = async (
     });
     res.status(200).json({ users: filteredUsers });
   } catch (error) {
-    throwError("something went wrong");
+    logger.error(`
+      module user method getAutoSuggestUsers error[${String(error)}] 
+      params ${JSON.stringify(req.params)}
+      body ${JSON.stringify(req.body)}
+    `);
+    return throwError("something went wrong", next);
   }
 };
