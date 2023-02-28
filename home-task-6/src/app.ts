@@ -30,7 +30,7 @@ async function init() {
   const app: Express = express();
   const port = 8080; //process.env.PORT;
 
-  app.use(cors)
+  app.use(cors())
   app.use(express.json());
 
   app.use((req: Request, res: Response, next: NextFunction) => {
