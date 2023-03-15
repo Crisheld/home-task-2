@@ -1,4 +1,6 @@
-# home-task-6
+# home-task-7
+
+execute "npm run test"  to run the application tests<br />
 
 execute "npm run start"  to run the application<br />
 
