@@ -1,0 +1,50 @@
+{
+  "name": "home-task-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "nodemon --exec ts-node --files ./src/server.ts",
+    "test-c": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Crisheld/home-task-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Crisheld/home-task-2/issues"
+  },
+  "homepage": "https://github.com/Crisheld/home-task-2#readme",
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-joi-validation": "^5.0.1",
+    "joi": "^17.7.0",
+    "joi-password": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.8.0",
+    "sequelize": "^6.28.0",
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/jest": "^29.4.2",
+    "@types/node": "^18.11.18",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
